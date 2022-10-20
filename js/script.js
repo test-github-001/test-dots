@@ -9,7 +9,7 @@ background.src = "./src/images/bg-dark.jpg";
 background.width = 5412;
 background.height = 3594;
 
-let vw, vh, cx, cy, bgX, bgY, bgW, bgH;
+let vw, vh, cx, cy, bgX, bgY, bgW, bgH, maxDots;
 
 window.addEventListener('resize', updateSizes);
 function updateSizes() {
@@ -17,6 +17,8 @@ function updateSizes() {
     canvas.height = vh = window.innerHeight;
     cx = Math.floor(vw / 2);
     cy = Math.floor(vh / 2);
+
+    maxDots = Math.ceil((vw * vh) / 400);
 
     let k_w = background.width / vw;
     let k_h = background.height / vh;
@@ -95,18 +97,14 @@ class Dot {
         return [channel, isAdd];
     }
 }
+let dotsArr = [];
+let dotAddedCounter = 1;
 
 function dotGenerator() {
     let dotNeed = dotAddedCounter - dotsArr.length;
     for (let i = 0; i < dotNeed; i++) dotsArr.push( new Dot() );
     if (dotAddedCounter < maxDots) dotAddedCounter++;
 }
-
-// INIT
-const maxDots = 5000;
-let dotsArr = [];
-
-let dotAddedCounter = 1;
 
 // ANIMATION
 function animate() {
